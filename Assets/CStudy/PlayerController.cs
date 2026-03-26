@@ -4,10 +4,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private bool isJumping = false;
-
     void Start()
     {
-        
     }
 
     void Update()

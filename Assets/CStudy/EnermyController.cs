@@ -8,8 +8,6 @@ public class EnermyController : MonoBehaviour
 
     void Start()
     {
-
-        
     }
 
     void Update()
@@ -20,7 +18,6 @@ public class EnermyController : MonoBehaviour
         {
             TakeDamage(15);
         }
-
     }
 
     void TakeDamage(int damage)
