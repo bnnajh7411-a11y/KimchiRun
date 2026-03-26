@@ -1,24 +1,38 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EnermyController : MonoBehaviour
 {
+    string enemyName = "슬라임";
+    int hp = 50;
 
-    string enermyName = "고블린";
-    int enermyHp = 80;
-    float moveSpeed = 2.5f;
-    bool isAttack = true;
     void Start()
     {
 
-        Debug.Log("적 이름: "+enermyName);
-        Debug.Log("적 체력: "+enermyHp);
-        Debug.Log("이동 속도: "+moveSpeed);
-        Debug.Log("공격 여부: "+isAttack);
         
     }
 
     void Update()
     {
-        
+        var key = Keyboard.current;
+
+        if (key.eKey.wasPressedThisFrame)
+        {
+            TakeDamage(15);
+        }
+
+    }
+
+    void TakeDamage(int damage)
+    {
+        hp -= damage;
+        if (hp <= 0)
+        {
+            Debug.Log("슬라임이 쓰러졌다!");
+        }
+        else
+        {
+            Debug.Log("현재 체력: "+hp);
+        }
     }
 }
