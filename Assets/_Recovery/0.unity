@@ -820,11 +820,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e336eb6013c28744870f987b9be153b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  jumpForce: 9
+  jumpForce: 10
   fallMultiplier: 7
   upMultiplier: 2
-  apexMultiplier: 3
-  apexThreshold: 2
   maxJumps: 2
 --- !u!1 &2045731586
 GameObject:
