@@ -11,19 +11,28 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rb;
     private int jumpsRemaining;
+    private Animator animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
+
         // 1. 점프 입력 처리
         if (Input.GetKeyDown(KeyCode.Space) && jumpsRemaining > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpsRemaining--; // 1씩 줄이기 (압축!)
+
+            // 점프 애니메이션 상태로 변경
+            if (animator != null)
+            {
+                animator.SetInteger("state", 1);
+            }
         }
 
         // 2. 점프 물리가 적용되는 세 가지 상태 처리 (최고점, 상승, 하강)
@@ -48,6 +57,11 @@ public class Player : MonoBehaviour
         {
             jumpsRemaining = maxJumps;
 
+            // 착지 애니메이션 상태로 변경
+            if (animator != null)
+            {
+                animator.SetInteger("state", 2);
+            }
         }
     }
 }
