@@ -26,8 +26,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && jumpsRemaining > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            jumpsRemaining--; // 1씩 줄이기 (압축!)
-
+            jumpsRemaining--;
             // 점프 애니메이션 상태로 변경
             if (animator != null)
             {
@@ -52,16 +51,24 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 3. 바닥(위쪽 면)을 밟았을 때 점프 횟수 초기화
+        Debug.Log(collision.gameObject.name);
         if (collision.contacts[0].normal.y > 0.5f)
         {
             jumpsRemaining = maxJumps;
 
-            // 착지 애니메이션 상태로 변경
             if (animator != null)
             {
                 animator.SetInteger("state", 2);
             }
         }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log(other.gameObject.name);
+
+        }
+
     }
 }
