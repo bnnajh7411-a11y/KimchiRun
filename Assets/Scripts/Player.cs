@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public float apexThreshold = 2.0f;
     public int maxJumps = 2;
 
-    private int lives = 3;
+    public int lives = 3;
     public bool isInvincible = false;
 
 
