@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    [Header("점프 설정 (Jump Settings)")]
     public float jumpForce = 9f;
     public float fallMultiplier = 2.5f;
     public float upMultiplier = 2.0f;
@@ -9,49 +11,72 @@ public class Player : MonoBehaviour
     public float apexThreshold = 2.0f;
     public int maxJumps = 2;
 
+    private int lives = 3;
+    public bool isInvincible = false;
+
+
     private Rigidbody2D rb;
     private int jumpsRemaining;
     private Animator animator;
+    private Collider2D collider2D;
+    private SpriteRenderer spriteRenderer;
 
-    void Start()
+
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+        collider2D = GetComponent<Collider2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Update()
     {
+        HandleJumpInput();
+        HandleJumpPhysics();
+    }
 
-        // 1. 점프 입력 처리
+
+
+    private void HandleJumpInput()
+    {
         if (Input.GetKeyDown(KeyCode.Space) && jumpsRemaining > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpsRemaining--;
-            // 점프 애니메이션 상태로 변경
+
             if (animator != null)
             {
                 animator.SetInteger("state", 1);
             }
         }
+    }
 
-        // 2. 점프 물리가 적용되는 세 가지 상태 처리 (최고점, 상승, 하강)
-        if (Mathf.Abs(rb.linearVelocity.y) < apexThreshold)
+    private void HandleJumpPhysics()
+    {
+        float velocityY = rb.linearVelocity.y;
+        float gravityY = Physics2D.gravity.y;
+
+        // 최고점에 도달했을 때 (Apex)
+        if (Mathf.Abs(velocityY) < apexThreshold)
         {
-            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (apexMultiplier - 1) * Time.deltaTime; // += 로 압축!
+            rb.linearVelocity += Vector2.up * gravityY * (apexMultiplier - 1) * Time.deltaTime;
         }
-        else if (rb.linearVelocity.y > 0)
+        // 상승 중일 때 (Rising)
+        else if (velocityY > 0)
         {
-            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (upMultiplier - 1) * Time.deltaTime;
+            rb.linearVelocity += Vector2.up * gravityY * (upMultiplier - 1) * Time.deltaTime;
         }
-        else if (rb.linearVelocity.y < 0)
+        // 하강 중일 때 (Falling)
+        else if (velocityY < 0)
         {
-            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            rb.linearVelocity += Vector2.up * gravityY * (fallMultiplier - 1) * Time.deltaTime;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.contacts[0].normal.y > 0.5f)
         {
             jumpsRemaining = maxJumps;
@@ -62,13 +87,72 @@ public class Player : MonoBehaviour
             }
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log(other.gameObject.name);
+            Debug.Log("enemy: " + other.gameObject.name);
 
+            Destroy(other.gameObject);
+
+            if (!isInvincible)
+            {
+                Damage();
+                CameraShake.Instance.Shake(0.2f, 0.1f);
+            }
         }
+        else if (other.gameObject.CompareTag("Food"))
+        {
+            Debug.Log("food: " + other.gameObject.name);
+
+            Destroy(other.gameObject);
+            Heal();
+        }
+        else if (other.gameObject.CompareTag("Golden"))
+        {
+            Debug.Log("golden: " + other.gameObject.name);
+
+            Destroy(other.gameObject);
+            StartInvincible();
+        }
+
+    }
+
+    private void Heal()
+    {
+        lives = Mathf.Min(lives + 1, 3);
+        Debug.Log(lives);
+    }
+    private void Damage()
+    {
+        lives--;
+        if (lives <= 0)
+        {
+            Debug.Log("GameOver");
+            KillPlayer();
+        }
+        Debug.Log(lives);
+    }
+
+    private void StartInvincible()
+    {
+        isInvincible = true;
+        spriteRenderer.color = new Color(1f, 1f, 0, 1f);
+        Invoke("StopInvincible", 5f);
+    }
+    private void StopInvincible()
+    {
+        spriteRenderer.color = new Color(1, 1, 1, 1f);
+        isInvincible = false;
+    }
+
+    private void KillPlayer()
+    {
+        collider2D.enabled = false;
+        spriteRenderer.color = new Color(1f, 0.5f, 0.5f, 1f);
+        animator.enabled = false;
+        rb.AddForceY(jumpForce, ForceMode2D.Impulse);
 
     }
 }

@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
-        MakeInstance();
+        //MakeInstance();
     }
 
     void Spawn()

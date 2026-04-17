@@ -10,13 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2837445622949489473}
   - component: {fileID: 1247418862338365585}
-  - component: {fileID: 4431564140152495817}
   - component: {fileID: 5315351253884254772}
   - component: {fileID: 986078196118767567}
   - component: {fileID: 5666050102840994422}
   m_Layer: 0
-  m_Name: Halmoni
-  m_TagString: Enemy
+  m_Name: Baechu
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 5660778534962921104, guid: 3b941449e64456f45abaaf6c024dfdcf, type: 3}
+  m_Sprite: {fileID: -2925002341216333216, guid: b0470c7d8b610254b9730b2c9b634b22, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,28 +94,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!95 &4431564140152495817
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6646916891454805775}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 167ba031a08fc4a4b9b2169c746f511b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &5315351253884254772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a9df6bc5248214f956f23945b6d6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mover
-  moveSpeed: 3
+  moveSpeed: 4
 --- !u!114 &986078196118767567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +153,6 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0065428168, y: 0.6830396}
-  m_Size: {x: 0.35154685, y: 1.3316244}
+  m_Offset: {x: 0.008415729, y: 0.034788013}
+  m_Size: {x: 0.45292437, y: 0.5661094}
   m_Direction: 0
