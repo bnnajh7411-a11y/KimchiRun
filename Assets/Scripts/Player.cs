@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     public float apexThreshold = 2.0f;
     public int maxJumps = 2;
 
-    public int lives = 3;
     public bool isInvincible = false;
 
 
@@ -92,7 +91,6 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("enemy: " + other.gameObject.name);
 
             Destroy(other.gameObject);
 
@@ -104,14 +102,12 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Food"))
         {
-            Debug.Log("food: " + other.gameObject.name);
 
             Destroy(other.gameObject);
             Heal();
         }
         else if (other.gameObject.CompareTag("Golden"))
         {
-            Debug.Log("golden: " + other.gameObject.name);
 
             Destroy(other.gameObject);
             StartInvincible();
@@ -121,18 +117,16 @@ public class Player : MonoBehaviour
 
     private void Heal()
     {
-        lives = Mathf.Min(lives + 1, 3);
-        Debug.Log(lives);
+        GameManager.Instance.AddLive();
     }
     private void Damage()
     {
-        lives--;
-        if (lives <= 0)
+        GameManager.Instance.RemoveLive();
+        if (GameManager.Instance.Lives <= 0)
         {
             Debug.Log("GameOver");
             KillPlayer();
         }
-        Debug.Log(lives);
     }
 
     private void StartInvincible()
