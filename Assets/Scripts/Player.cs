@@ -32,11 +32,23 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        Move();
         HandleJumpInput();
         HandleJumpPhysics();
     }
 
+    private void Move()
+    {
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            rb.linearVelocity = new Vector2(-5f, rb.linearVelocity.y);
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            rb.linearVelocity = new Vector2(5f, rb.linearVelocity.y);
+        }
 
+    }
 
     private void HandleJumpInput()
     {

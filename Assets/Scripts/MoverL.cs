@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Mover : MonoBehaviour
+public class MoverL : MonoBehaviour
 {
     [Header("속도")]
     [SerializeField] private float moveSpeed = 5.0f;

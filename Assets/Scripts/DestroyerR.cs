@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Destroyer : MonoBehaviour
+public class DestroyerR : MonoBehaviour
 {
     private Camera mainCamera;
     private SpriteRenderer spriteRenderer;
@@ -14,10 +14,10 @@ public class Destroyer : MonoBehaviour
 
     void Update()
     {
-        float cameraLeftEdge = mainCamera.transform.position.x - mainCamera.orthographicSize * mainCamera.aspect;
-        float objectRightEdge = spriteRenderer.bounds.max.x;
+        float cameraRightEdge = mainCamera.transform.position.x + mainCamera.orthographicSize * mainCamera.aspect;
+        float objectLeftEdge = spriteRenderer.bounds.min.x;
 
-        if (objectRightEdge < cameraLeftEdge)
+        if (objectLeftEdge > cameraRightEdge)
         {
             Destroy(gameObject);
         }

@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     public int Lives = 3;
     private bool isGameOver = false;
 
+    private float playStartTime;
+    public int HighScore = 0;
+    public int MyScore = 0;
+
     private void Awake()
     {
         if (Instance == null)
@@ -40,6 +44,8 @@ public class GameManager : MonoBehaviour
                 State = GameState.Playing;
                 UIManager.Instance.IntroUI.SetActive(false);
                 UIManager.Instance.ItemSpawner.SetActive(true);
+
+                playStartTime = Time.time;
             }
         }
 
@@ -49,6 +55,7 @@ public class GameManager : MonoBehaviour
             {
                 State = GameState.GameOver;
                 UIManager.Instance.ItemSpawner.SetActive(false);
+                SaveScore();
             }
         }
         else if (State == GameState.GameOver)
@@ -59,6 +66,21 @@ public class GameManager : MonoBehaviour
             }
             isGameOver = true;
         }
+    }
+
+    private void SaveScore()
+    {
+        MyScore = CalculateScore();
+        if (MyScore > HighScore)
+        {
+            HighScore = MyScore;
+        }
+    }
+
+    public int CalculateScore()
+    {
+        int score = Mathf.FloorToInt(Time.time - playStartTime);
+        return score;
     }
 
     private void GameOverEvent()
