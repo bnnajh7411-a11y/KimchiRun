@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
         if (GameManager.Instance.State == GameState.Playing)
         {
             scoreText.text = "Score: " + GameManager.Instance.CalculateScore();
-            highScoreText.text = "High Score: " + GameManager.Instance.HighScore;
+            highScoreText.text = "High Score: " + GameManager.Instance.GetHighScore();
         }
         else
         {

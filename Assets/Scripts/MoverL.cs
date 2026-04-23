@@ -2,16 +2,10 @@ using UnityEngine;
 
 public class MoverL : MonoBehaviour
 {
-    [Header("속도")]
-    [SerializeField] private float moveSpeed = 5.0f;
-
-    void Start()
-    {
-
-    }
 
     void Update()
     {
+        float moveSpeed = GameManager.Instance.CalculateGameSpeed();
         transform.position += Vector3.left * moveSpeed * Time.deltaTime;
     }
 }

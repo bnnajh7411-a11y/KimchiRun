@@ -17,8 +17,7 @@ public class GameManager : MonoBehaviour
     private bool isGameOver = false;
 
     private float playStartTime;
-    public int HighScore = 0;
-    public int MyScore = 0;
+    public int MyScore;
 
     private void Awake()
     {
@@ -39,6 +38,7 @@ public class GameManager : MonoBehaviour
         {
             Lives = 3;
             isGameOver = false;
+            MyScore = 0;
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
                 State = GameState.Playing;
@@ -68,18 +68,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public float CalculateGameSpeed()
+    {
+        if (State != GameState.Playing)
+        {
+            return 5f;
+        }
+        float speed = 5f + CalculateScore() * 0.05f;
+        return Mathf.Min(speed, 30f);
+    }
+
     private void SaveScore()
     {
         MyScore = CalculateScore();
+        int HighScore = GetHighScore();
         if (MyScore > HighScore)
         {
-            HighScore = MyScore;
+            PlayerPrefs.SetInt("HighScore", MyScore);
+            PlayerPrefs.Save();
         }
+    }
+
+    public int GetHighScore()
+    {
+        return PlayerPrefs.GetInt("HighScore", 0);
     }
 
     public int CalculateScore()
     {
-        int score = Mathf.FloorToInt(Time.time - playStartTime);
+        int score = MyScore + Mathf.FloorToInt(Time.time - playStartTime);
         return score;
     }
 

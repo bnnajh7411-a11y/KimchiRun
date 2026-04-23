@@ -48,6 +48,9 @@ public class Player : MonoBehaviour
             rb.linearVelocity = new Vector2(5f, rb.linearVelocity.y);
         }
 
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
+        viewportPos.x = Mathf.Clamp(viewportPos.x, 0.03f, 0.97f);
+        transform.position = Camera.main.ViewportToWorldPoint(viewportPos);
     }
 
     private void HandleJumpInput()
@@ -69,17 +72,15 @@ public class Player : MonoBehaviour
         float velocityY = rb.linearVelocity.y;
         float gravityY = Physics2D.gravity.y;
 
-        // 최고점에 도달했을 때 (Apex)
         if (Mathf.Abs(velocityY) < apexThreshold)
         {
             rb.linearVelocity += Vector2.up * gravityY * (apexMultiplier - 1) * Time.deltaTime;
         }
-        // 상승 중일 때 (Rising)
+
         else if (velocityY > 0)
         {
             rb.linearVelocity += Vector2.up * gravityY * (upMultiplier - 1) * Time.deltaTime;
         }
-        // 하강 중일 때 (Falling)
         else if (velocityY < 0)
         {
             rb.linearVelocity += Vector2.up * gravityY * (fallMultiplier - 1) * Time.deltaTime;
@@ -111,6 +112,10 @@ public class Player : MonoBehaviour
                 Damage();
                 CameraShake.Instance.Shake(0.2f, 0.1f);
             }
+            else
+            {
+                GameManager.Instance.MyScore += 5;
+            }
         }
         else if (other.gameObject.CompareTag("Food"))
         {
@@ -123,6 +128,12 @@ public class Player : MonoBehaviour
 
             Destroy(other.gameObject);
             StartInvincible();
+        }
+        else if (other.gameObject.CompareTag("Coin"))
+        {
+
+            Destroy(other.gameObject);
+            GameManager.Instance.MyScore += 50;
         }
 
     }

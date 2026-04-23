@@ -2,19 +2,16 @@ using UnityEngine;
 
 public class BackgroundScroll : MonoBehaviour
 {
-    [SerializeField] private float scrollSpeed = 0.5f;
-    private MeshRenderer meshRenderer;
-    private float offset;
+    private Material material;
 
-    void Start()
+    private void Start()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
+        material = GetComponent<MeshRenderer>().material;
     }
 
-    void Update()
+    private void Update()
     {
-        offset += Time.deltaTime * scrollSpeed;
-
-        meshRenderer.material.SetTextureOffset("_BaseMap", new Vector2(offset, 0));
+        float scrollSpeed = GameManager.Instance.CalculateGameSpeed() / 10;
+        material.mainTextureOffset += new Vector2(scrollSpeed * Time.deltaTime, 0);
     }
 }

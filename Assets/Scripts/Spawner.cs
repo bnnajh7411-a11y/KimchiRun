@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
     public float minSpawnTime = 2f;
     public float maxSpawnTime = 4f;
 
-    [Header("생성할 건물")]
+    [Header("생성할 것")]
     public GameObject[] buildingPrefabs;
 
     private void OnEnable()
@@ -29,7 +29,8 @@ public class Spawner : MonoBehaviour
     {
         MakeInstance();
 
-        float randomTime = Random.Range(minSpawnTime, maxSpawnTime);
+        float speedRatio = 5f / GameManager.Instance.CalculateGameSpeed();
+        float randomTime = Random.Range(minSpawnTime, maxSpawnTime) * speedRatio;
         Invoke("Spawn", randomTime);
     }
 
