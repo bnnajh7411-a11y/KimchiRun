@@ -1056,6 +1056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0891d6da59c96d14c8d00bd9bd935002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundScroll
+  newBackgroundImage: {fileID: 2800000, guid: 637a1984a35956646892d4c67adb4cc4, type: 3}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1818,6 +1819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0891d6da59c96d14c8d00bd9bd935002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundScroll
+  newBackgroundImage: {fileID: 0}
 --- !u!61 &1563281076
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2422,6 +2424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0891d6da59c96d14c8d00bd9bd935002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundScroll
+  newBackgroundImage: {fileID: 2800000, guid: 58fb9eae4b722a4469368149d20ad451, type: 3}
 --- !u!1 &2072880020
 GameObject:
   m_ObjectHideFlags: 0
