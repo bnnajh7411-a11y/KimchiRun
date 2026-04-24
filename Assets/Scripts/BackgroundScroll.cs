@@ -18,13 +18,18 @@ public class BackgroundScroll : MonoBehaviour
         float scrollSpeed = GameManager.Instance.CalculateGameSpeed() / 10;
         material.mainTextureOffset += new Vector2(scrollSpeed * Time.deltaTime, 0);
 
-        // 점수가 100점 이상이 될 때 이미지를 한 번만 변경
         if (!isChanged && GameManager.Instance.CalculateScore() >= 100)
         {
             if (newBackgroundImage != null)
             {
                 material.mainTexture = newBackgroundImage;
             }
+
+            if (ColorUtility.TryParseHtmlString("#153AB0", out Color newColor))
+            {
+                Camera.main.backgroundColor = newColor;
+            }
+
             isChanged = true;
         }
     }
